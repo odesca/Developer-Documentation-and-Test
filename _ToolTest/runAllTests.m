@@ -34,7 +34,7 @@ disp('Execute ''addODESCAPaths.m'' ...');
 try
 %##############################################
 % ENTER THE PATH OF YOUR ODESCA REPOSITORY HERE
-    run('../addODESCAPaths.m'); % add the paths of the framework
+    run('../../ODESCA/addODESCAPaths.m'); % add the paths of the framework
 catch
     error('Please enter the correct path of your ODESCA Repository in the script.');
 end

@@ -324,31 +324,31 @@ classdef Test_ODESCA_System < matlab.unittest.TestCase
             
         end
         
-        % ---------- checks for calculateValidSteadyStates ----------------
+        % ---------- checks for findSteadyState ---------------------------
         
-        function check_calculateValidSteadyStates_error(testCase)
+        function check_findSteadyState_error(testCase)
             % Prepare the system
             c1 = Test_ODESCA_System_CompS0I1O1P1CP0('Comp1');
             testCase.system.addComponent(c1);
             
             % check the error
-            testCase.verifyError(@()testCase.system.calculateValidSteadyStates,'ODESCA_System:calculateValidSteadyStates:noStates','The method does not throw a correct error if the system has no states.');
+            testCase.verifyError(@()testCase.system.findSteadyState,'ODESCA_System:findSteadyState:noStates','The method does not throw a correct error if the system has no states.');
             
             % Prepare the system
             c2 = Test_ODESCA_System_CompS1I0O1P1CP0('Comp2');
             testCase.system.addComponent(c2);
             
             % check the error
-            testCase.verifyError(@()testCase.system.calculateValidSteadyStates,'ODESCA_System:calculateValidSteadyStates:notAllParametersSet','The method does not throw a correct error if not all parameters were set.');
+            testCase.verifyError(@()testCase.system.findSteadyState,'ODESCA_System:findSteadyState:notAllParametersSet','The method does not throw a correct error if not all parameters were set.');
         end
         
-        function check_calculateValidSteadyStates(testCase)
+        function check_findSteadyState(testCase)
             % Prepare the system
             syms u_s1
             c1 = Test_ODESCA_System_CompS1I1O1P1CP0('Comp1');
             testCase.system.addComponent(c1);
             testCase.system.setParam('Comp1_Parameter',5);
-            testCase.system.calculateValidSteadyStates();
+            testCase.system.findSteadyState('method','analytically');
             
             testCase.verifyEqual(testCase.system.validSteadyStates.x1,5*u_s1,'The method does not create the correct valid steady states.');
             testCase.verifyEqual(length(testCase.system.validSteadyStates.parameters),0,'The method does not create the correct valid steady states.');
